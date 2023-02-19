@@ -12,6 +12,9 @@
     "@typescript-eslint"
   ],
   "rules": {
+    "import/extensions": "off",
+    "import/no-unresolved": "off",
+    "react/react-in-jsx-scope": "off",
     "arrow-body-style": ["error", "always"],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }]
   }
