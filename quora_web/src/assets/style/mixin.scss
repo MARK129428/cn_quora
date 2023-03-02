@@ -1,0 +1,10 @@
+@mixin jcc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin jcsb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

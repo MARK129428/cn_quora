@@ -1,0 +1,10 @@
+  
+.header-wrapper {
+  @include jcsb;
+  position: fixed;
+  width: 100%;
+  box-sizing: border-box;
+  top: 0px;
+  min-height: 50px;
+  padding: 0 240px;
+}
