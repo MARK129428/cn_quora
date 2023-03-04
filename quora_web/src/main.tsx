@@ -1,8 +1,18 @@
 import { createRoot } from 'react-dom/client';
+import { ConfigProvider } from 'antd';
 import App from './App';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import 'normalize.css';
+import 'antd/dist/reset.css';
 
 const root = document.getElementById('app');
 const app = createRoot(root!);
-app.render(<App />);
+app.render(
+  <ConfigProvider
+    theme={{
+      token: {
+        colorPrimary: '#1677ff',
+      },
+    }}
+  >
+    <App />
+  </ConfigProvider>,
+);

@@ -8,7 +8,7 @@ function Header({ children } : HeaderProps) {
   return (
     <div className={styles['header-wrapper']}>
       <div>{children[0]}</div>
-      <div>{children[1]}</div>
+      <div className={styles['header-middle']}>{children[1]}</div>
       <div>{children[2]}</div>
     </div>
   );

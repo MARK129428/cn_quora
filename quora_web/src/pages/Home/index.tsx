@@ -1,14 +1,38 @@
-import Header from '@component/Header';
-import styles from './index.module.scss';
+import AskCard from '@page/Home/components/AskCard';
+import AskItem from '@page/Home/components/AskItem';
+import HotTopic from '@page/Home/components/HotTopic';
 
 function Home() {
   return (
     <div>
-      <Header>
-        <div className={styles.data}>xxx</div>
-        <div style={{ width: '50px', height: '50px' }}>xx</div>
-        <div>xxx</div>
-      </Header>
+      <AskCard />
+      <div>
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+        <AskItem />
+      </div>
+      <HotTopic />
     </div>
   );
 }

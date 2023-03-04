@@ -1,5 +1,6 @@
   
 .header-wrapper {
+  z-index: 999;
   @include jcsb;
   position: fixed;
   width: 100%;
@@ -7,4 +8,11 @@
   top: 0px;
   min-height: 50px;
   padding: 0 240px;
+  background: white;
+  border-bottom: 1px solid rgba(0,0,0,.22);
+}
+
+.header-middle {
+  flex: 1;
+  margin: 0 300px 0 30px;
 }
