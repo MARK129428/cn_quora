@@ -4,3 +4,10 @@ body {
   height: 100vh;
   background-color: rgb(241, 242, 242);
 }
+a {
+  text-decoration: none;
+}
+
+[role] {
+  cursor: pointer;
+}

@@ -1,23 +1,31 @@
-import { HashRouter as Router } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { Input, Button, Space } from 'antd';
-import { ChangeEventHandler } from 'react';
+import { ChangeEventHandler, MouseEventHandler} from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import Header from '@component/Header';
-import styles from '@page/Home/index.module.scss';
 import Logo from '@/assets/img/logo.svg';
 import routes from './router/route';
 import './index.scss';
 
-export default function APP() {
+function APP() {
+  const history = useHistory();
   // input框改变
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
+  };
+  const handleLogoClick: MouseEventHandler<HTMLDivElement> = () =>{
+    history.push('/');
   };
   return (
     <div>
       <Header>
-        <div className={styles.data}>
+        <div
+          onClick={handleLogoClick}
+          onKeyDown={undefined}
+          role="button"
+          tabIndex={0}
+        >
           <img src={Logo} alt="logo" />
         </div>
         <div>
@@ -37,10 +45,10 @@ export default function APP() {
         </div>
       </Header>
       <main style={{ marginTop: '64px', padding: '0 260px 0 240px' }}>
-        <Router>
-          {renderRoutes(routes)}
-        </Router>
+        {renderRoutes(routes)}
       </main>
     </div>
   );
 }
+
+export default withRouter(APP);

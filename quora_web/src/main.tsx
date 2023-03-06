@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import { HashRouter as Router } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import App from './App';
 import 'antd/dist/reset.css';
@@ -13,6 +14,8 @@ app.render(
       },
     }}
   >
-    <App />
+    <Router>
+      <App />
+    </Router>
   </ConfigProvider>,
 );

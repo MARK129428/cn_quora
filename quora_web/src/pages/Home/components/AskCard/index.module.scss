@@ -27,6 +27,10 @@
       @include jcc;
       width: 100%;
     }
+    > a > div {
+      @include jcc;
+      width: 100%;
+    }
     :hover {
       background: rgb(247, 247, 247);
       cursor: pointer;

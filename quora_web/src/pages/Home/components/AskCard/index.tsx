@@ -1,5 +1,6 @@
 import { Avatar, Space, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
 import styles from './index.module.scss';
 import WenHao from '@/assets/img/wenhao.svg';
 import Answer from '@/assets/img/answer.svg';
@@ -23,10 +24,12 @@ function AskCard() {
         </div>
         |
         <div>
-          <Space>
-            <img src={Answer} alt="回答" />
-            <span>回答</span>
-          </Space>
+          <Link to="/answer">
+            <Space>
+              <img src={Answer} alt="回答" />
+              <span>回答</span>
+            </Space>
+          </Link>
         </div>
         |
         <div>
