@@ -1,7 +1,9 @@
 import { RouteConfig } from 'react-router-config';
+import { useLocation } from 'react-router';
 import Home from '@page/Home';
 import Answer from '@page/Answer';
-import { useLocation } from 'react-router';
+import SignUp from '@page/SignUp';
+import SignIn from '@page/SignIn';
 
 function NoMatch() {
   const location = useLocation();
@@ -26,6 +28,14 @@ const routes: RouteConfig[] = [
     path: '/answer',
     exact: true,
     component: Answer,
+  },
+  {
+    path: '/signin',
+    component: SignIn,
+  },
+  {
+    path: '/signup',
+    component: SignUp,
   },
   {
     path: '*',

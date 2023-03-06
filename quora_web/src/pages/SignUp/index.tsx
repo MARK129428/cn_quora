@@ -11,7 +11,7 @@ const onFinishFailed = (errorInfo: any) => {
 
 function SignIn() {
   return (
-    <div className={styles['SignIn-wrapper']}>
+    <div className={styles['SignUp-wrapper']}>
       <div className={styles['login-card']}>
         <Form
           name="basic"
@@ -37,9 +37,33 @@ function SignIn() {
           >
             <Input.Password />
           </Form.Item>
+          <Form.Item
+            label="NewPassword"
+            name="NewPassword"
+            dependencies={['password']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => {
+                return {
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The two passwords that you entered do not match!'));
+                  },
+                };
+              },
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" size="large" htmlType="submit">
-              Login
+              Register
             </Button>
           </Form.Item>
         </Form>
