@@ -96,3 +96,29 @@ func Update(c *gin.Context) {
 		})
 	}
 }
+
+func GetUser(c *gin.Context) {
+	token := c.GetStringMapString("token")
+	u := User{
+		Password: token["Password"],
+		Email:    "",
+		Username: token["Username"],
+		Avatar:   "",
+	}
+
+	service := SigninService(&u)
+
+	if service != nil {
+		c.JSON(200, gin.H{
+			"message": "success",
+			"email": service.Email,
+			"username": service.Username,
+			"avatar": service.Avatar,
+		})
+		return
+	}
+	c.JSON(200, gin.H{
+		"message": "error",
+		"data": "用户未注册",
+	})
+}

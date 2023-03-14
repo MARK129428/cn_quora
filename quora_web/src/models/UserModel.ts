@@ -5,7 +5,7 @@ import {
   observable,
 } from 'mobx';
 import { SignUpMsg } from '@page/SignUp';
-import { userSignIn } from '@/api/user';
+import { changeUserMsg, getUser, userSignIn } from '@/api/user';
 
 export interface ResponseGenerator{
   avatar: string,
@@ -28,8 +28,14 @@ class UserModel {
       avatar: observable,
       email: observable,
       getUser: action.bound,
-      loadUser: flow,
+      initUser: action.bound,
+      loadUser: flow.bound,
+      getUserWithToken: flow.bound,
+      changeUser: flow.bound,
     });
+    if (localStorage.getItem('token')) {
+      this.getUserWithToken();
+    }
   }
 
   getUser() {
@@ -40,17 +46,35 @@ class UserModel {
     };
   }
 
-  // eslint-disable-next-line class-methods-use-this
   * loadUser(signUpMsg: SignUpMsg) {
     const response:ResponseGenerator = yield userSignIn(signUpMsg);
+    this.initUser(response);
+    return response;
+  }
+
+  * getUserWithToken() {
+    const response:ResponseGenerator = yield getUser();
+    this.initUser(response);
+    return response;
+  }
+
+  * changeUser(signUpMsg: SignUpMsg) {
+    const response: ResponseGenerator = yield changeUserMsg(signUpMsg);
+    this.initUser(response);
+    console.log(response)
+  }
+
+  initUser(response:ResponseGenerator) {
+    if (!response) {
+      return response;
+    }
     if (response.token) {
       localStorage.setItem('token', response.token);
     }
     if (
-      response
-      && response.avatar
-      && response.email
-      && response.username
+      response.avatar !== undefined
+      && response.email !== undefined
+      && response.username !== undefined
     ) {
       this.avatar = response.avatar;
       this.email = response.email;

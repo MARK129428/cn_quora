@@ -5,6 +5,7 @@ import { RootModelProvider } from '@model/rootModel';
 import App from './App';
 import 'antd/dist/reset.css';
 import './index.scss';
+import 'bytemd/dist/index.css';
 
 const root = document.getElementById('app');
 const app = createRoot(root!);

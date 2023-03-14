@@ -12,3 +12,7 @@ export function userSignUp(parameter: any) {
 export function changeUserMsg(parameter: any) {
   return instance.patch('/user', parameter);
 }
+
+export function getUser() {
+  return instance.get('/user');
+}

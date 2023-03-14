@@ -4,7 +4,8 @@ import { userSignUp } from '@/api/user';
 
 export interface SignUpMsg {
   username: string;
-  password: string;
+  password?: string;
+  email?: string
 }
 const onFinish = async (values: any) => {
   const signUpMsg: SignUpMsg = {

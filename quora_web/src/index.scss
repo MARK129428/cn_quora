@@ -2,6 +2,7 @@ body {
   display: block;
   width: 100vw; 
   height: 100vh;
+  overflow-x: hidden;
   background-color: rgb(241, 242, 242);
 }
 a {
@@ -11,4 +12,11 @@ a {
 
 [role] {
   cursor: pointer;
+}
+
+.bytemd {
+  min-height: calc(100vh - 100px) !important;
+}
+.markdown-body {
+  min-height: calc(100vh - 100px) !important;
 }

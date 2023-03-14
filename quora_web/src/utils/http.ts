@@ -14,7 +14,9 @@ const baseConfig: CreateAxiosDefaults = {
 const instance = axios.create(baseConfig);
 
 instance.interceptors.request.use((config) => {
-  instance.defaults.headers.common.Authorization = localStorage.getItem('token');
+  if (localStorage.getItem('token')) {
+    instance.defaults.headers.common.Authorization = localStorage.getItem('token');
+  }
   return config;
 }, (error) => {
   return Promise.reject(error);

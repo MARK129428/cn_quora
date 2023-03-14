@@ -66,7 +66,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, '../src/public/index.html')
+            template: path.resolve(__dirname, '../src/public/index.html'),
+            title: "问啥"
         })
     ]
 }

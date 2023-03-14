@@ -1,0 +1,15 @@
+.user-wrapper {
+  background: white;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 20px 0;
+  border-radius: 10px;
+  min-height: calc(100vh - 50px);
+}
+
+.avatar {
+  box-sizing: border-box;
+  max-width: 600px;
+  @include jcc;
+  margin-bottom: 30px;
+}

@@ -17,7 +17,6 @@ func SignupService(u *User) int64 {
 func SigninService(u *User) *User {
 	fmt.Println(u.Username, u.Password, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 	result := map[string]string{
-		"username": u.Username,
 		"password": u.Password,
 	}
 	var user User
@@ -29,7 +28,7 @@ func SigninService(u *User) *User {
 }
 
 func UpdateService(u *User, token map[string]string) *User {
-	data := db.DB.Model(&User{}).Where("username = ? && password = ?", token["Username"], token["Password"]).Updates(&u)
+	data := db.DB.Model(&User{}).Where("password = ?", token["Password"]).Updates(&u)
 	if data.RowsAffected == 0 {
 		fmt.Println("出错；额")
 		return nil
