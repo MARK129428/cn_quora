@@ -4,15 +4,8 @@
       "name": "Launch Chrome",
      "request": "launch",
      "type": "chrome",
-     "url": "http://192.168.0.109:8000/#/",
+     "url": "http://localhost:8000/#/",
      "webRoot": "${workspaceFolder}"
-    },
-    {
-      "type": "chrome",
-      "request": "launch",
-      "name": "Launch Chrome",
-      "url": "http://localhost:8000/#/",
-      "webRoot": "${workspaceFolder}"
     },
   ]
 }

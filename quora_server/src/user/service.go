@@ -15,12 +15,17 @@ func SignupService(u *User) int64 {
 }
 
 func SigninService(u *User) *User {
-	find := db.DB.First(u)
-	if err := find.Error; err != nil {
-		fmt.Println("查找失败", err)
+	fmt.Println(u.Username, u.Password, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
+	result := map[string]string{
+		"username": u.Username,
+		"password": u.Password,
+	}
+	var user User
+	find := db.DB.Where(result).First(&user)
+	if find.RowsAffected == 0 {
 		return nil
 	}
-	return u
+	return &user
 }
 
 func UpdateService(u *User, token map[string]string) *User {

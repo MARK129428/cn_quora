@@ -1,8 +1,17 @@
 import { Button, Form, Input } from 'antd';
 import styles from './index.module.scss';
+import { userSignUp } from '@/api/user';
 
-const onFinish = (values: any) => {
-  console.log('Success:', values);
+export interface SignUpMsg {
+  username: string;
+  password: string;
+}
+const onFinish = async (values: any) => {
+  const signUpMsg: SignUpMsg = {
+    username: values.username,
+    password: values.newPassword,
+  };
+  const response = await userSignUp(signUpMsg);
 };
 
 const onFinishFailed = (errorInfo: any) => {
@@ -39,7 +48,7 @@ function SignIn() {
           </Form.Item>
           <Form.Item
             label="NewPassword"
-            name="NewPassword"
+            name="newPassword"
             dependencies={['password']}
             hasFeedback
             rules={[

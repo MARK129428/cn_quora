@@ -1,11 +1,14 @@
 import { createRoot } from 'react-dom/client';
 import { HashRouter as Router } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
+import { RootModelProvider } from '@model/rootModel';
 import App from './App';
 import 'antd/dist/reset.css';
+import './index.scss';
 
 const root = document.getElementById('app');
 const app = createRoot(root!);
+
 app.render(
   <ConfigProvider
     theme={{
@@ -14,8 +17,10 @@ app.render(
       },
     }}
   >
-    <Router>
-      <App />
-    </Router>
+    <RootModelProvider>
+      <Router>
+        <App />
+      </Router>
+    </RootModelProvider>
   </ConfigProvider>,
 );

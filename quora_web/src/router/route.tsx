@@ -1,9 +1,6 @@
 import { RouteConfig } from 'react-router-config';
 import { useLocation } from 'react-router';
-import Home from '@page/Home';
-import Answer from '@page/Answer';
-import SignUp from '@page/SignUp';
-import SignIn from '@page/SignIn';
+import { lazy } from 'react';
 
 function NoMatch() {
   const location = useLocation();
@@ -22,20 +19,28 @@ const routes: RouteConfig[] = [
   {
     path: '/',
     exact: true,
-    component: Home,
+    component: lazy(() => { return import('@page/Home'); }),
   },
   {
     path: '/answer',
     exact: true,
-    component: Answer,
+    component: lazy(() => { return import('@page/Answer'); }),
   },
   {
     path: '/signin',
-    component: SignIn,
+    component: lazy(() => { return import('@page/SignIn'); }),
   },
   {
     path: '/signup',
-    component: SignUp,
+    component: lazy(() => { return import('@page/SignUp'); }),
+  },
+  {
+    path: '/article',
+    component: lazy(() => { return import('@page/Article'); }),
+  },
+  {
+    path: '/user',
+    component: lazy(() => { return import('@page/User'); }),
   },
   {
     path: '*',

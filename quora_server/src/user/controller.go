@@ -1,19 +1,19 @@
 package user
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
 	"net/http"
 	"quora_server/src/utils"
 )
 
 func Signup(c *gin.Context) {
 	username := c.PostForm("username")
+	fmt.Println(username, "ffffff")
 	password := c.PostForm("password")
 	Md5Password := utils.Md5(password)
 
 	u := User{
-		Model:    gorm.Model{},
 		Password: Md5Password,
 		Email:    "",
 		Username: username,
@@ -44,7 +44,6 @@ func Signin(c *gin.Context) {
 	Md5Password := utils.Md5(password)
 
 	u := User{
-		Model:    gorm.Model{},
 		Password: Md5Password,
 		Email:    "",
 		Username: username,
@@ -62,11 +61,15 @@ func Signin(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "success",
 			"token":   token,
+			"email": service.Email,
+			"username": service.Username,
+			"avatar": service.Avatar,
 		})
 		return
 	}
-	c.JSON(500, gin.H{
+	c.JSON(200, gin.H{
 		"message": "error",
+		"data": "用户未注册",
 	})
 }
 
@@ -77,7 +80,6 @@ func Update(c *gin.Context) {
 	token := c.GetStringMapString("token")
 
 	u := User{
-		Model:    gorm.Model{},
 		Email:    email,
 		Username: username,
 		Avatar:   avatar,

@@ -1,8 +1,9 @@
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { Input, Button, Space } from 'antd';
-import { ChangeEventHandler, MouseEventHandler} from 'react';
-import { SearchOutlined } from '@ant-design/icons';
+import { Input, Button, Space, Avatar } from 'antd';
+import ReactLoading from 'react-loading';
+import { ChangeEventHandler, MouseEventHandler, Suspense} from 'react';
+import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import Header from '@component/Header';
 import Logo from '@/assets/img/logo.svg';
 import routes from './router/route';
@@ -10,10 +11,10 @@ import routes from './router/route';
 function APP() {
   const history = useHistory();
   // input框改变
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
     // console.log(e.target.value);
   };
-  const handleLogoClick: MouseEventHandler<HTMLDivElement> = () =>{
+  const handleLogoClick: MouseEventHandler<HTMLDivElement> = () => {
     history.push('/');
   };
   return (
@@ -38,17 +39,31 @@ function APP() {
         </div>
         <div>
           <Space>
-            <Link to="/signin">
-              <Button>登录</Button>
-            </Link>
-            <Link to="/signup">
-              <Button>注册</Button>
-            </Link>
+            {
+              localStorage.getItem('token')
+                ? (
+                  <Link to="/user">
+                    <Avatar icon={<UserOutlined />} />
+                  </Link>
+                )
+                : (
+                  <>
+                    <Link to="/signin">
+                      <Button>登录</Button>
+                    </Link>
+                    <Link to="/signup">
+                      <Button>注册</Button>
+                    </Link>
+                  </>
+                )
+            }
           </Space>
         </div>
       </Header>
       <main style={{ marginTop: '64px', padding: '0 260px 0 240px' }}>
-        {renderRoutes(routes)}
+        <Suspense fallback={<ReactLoading />}>
+          {renderRoutes(routes)}
+        </Suspense>
       </main>
     </div>
   );

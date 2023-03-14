@@ -33,10 +33,12 @@ function AskCard() {
         </div>
         |
         <div>
-          <Space>
-            <img src={Blog} alt="文章" />
-            <span>文章</span>
-          </Space>
+          <Link to="/article">
+            <Space>
+              <img src={Blog} alt="文章" />
+              <span>文章</span>
+            </Space>
+          </Link>
         </div>
       </div>
     </div>

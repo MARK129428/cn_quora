@@ -1,15 +1,27 @@
+import { useCallback } from 'react';
 import { Button, Form, Input } from 'antd';
+import { useHistory } from 'react-router';
+import { useRootStore } from '@model/rootModel';
+import { SignUpMsg } from '@page/SignUp';
 import styles from './index.module.scss';
 
-const onFinish = (values: any) => {
-  console.log('Success:', values);
-};
-
-const onFinishFailed = (errorInfo: any) => {
-  console.log('Failed:', errorInfo);
-};
-
 function SignIn() {
+  const history = useHistory();
+  const { userModel } = useRootStore();
+  const onFinish = useCallback(async (values: any) => {
+    const signUpMsg: SignUpMsg = {
+      username: values.username,
+      password: values.password,
+    };
+    const { loadUser } = userModel;
+    const response = await loadUser(signUpMsg);
+    console.log(response);
+    history.push('/');
+  }, []);
+
+  const onFinishFailed = useCallback((errorInfo: any) => {
+    console.log('Failed:', errorInfo);
+  }, []);
   return (
     <div className={styles['SignIn-wrapper']}>
       <div className={styles['login-card']}>

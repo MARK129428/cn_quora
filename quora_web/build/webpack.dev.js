@@ -4,6 +4,7 @@ const portfinder = require('portfinder');
 
 const devConfig = merge({
   mode: "development",
+  devtool: 'source-map',
   devServer: {
     hot: true,
     port: 3000,
@@ -11,6 +12,14 @@ const devConfig = merge({
     client: {
       progress: true,
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:9000/v1',
+        pathRewrite: {
+          '/api': ''
+        }
+      }
+    }
   },
 }, commonConfig)
 
