@@ -40,6 +40,11 @@ const routes: RouteConfig[] = [
     component: lazy(() => { return import('@page/Article'); }),
   },
   {
+    path: '/question/:id',
+    exact: true,
+    component: lazy(() => { return import('@page/Question'); }),
+  },
+  {
     path: '/articleview/:id',
     exact: true,
     component: lazy(() => { return import('@page/ArticleView'); }),
@@ -55,18 +60,22 @@ const routes: RouteConfig[] = [
     routes: [
       {
         path: '/user/info',
+        exact: true,
         component: lazy(() => { return import('@page/User/Info'); }),
       },
       {
         path: '/user/answer',
+        exact: true,
         component: lazy(() => { return import('@page/User/Answer'); }),
       },
       {
         path: '/user/question',
+        exact: true,
         component: lazy(() => { return import('@page/User/Question'); }),
       },
       {
         path: '/user/article',
+        exact: true,
         component: lazy(() => { return import('@page/User/Article'); }),
       },
     ],

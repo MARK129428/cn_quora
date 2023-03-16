@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ChangeEventHandler, useState } from 'react';
 import {
   Avatar,
   Space,
@@ -11,6 +11,7 @@ import styles from './index.module.scss';
 import WenHao from '@/assets/img/wenhao.svg';
 import Answer from '@/assets/img/answer.svg';
 import Blog from '@/assets/img/blog.svg';
+import { createQuestion } from '@/api/question';
 
 const { TextArea } = Input;
 
@@ -21,17 +22,34 @@ function AskCard() {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const [textValue, setTextValue] = useState('');
+  const handleOk = async () => {
+    if (textValue !== '') {
+      const response = await createQuestion(textValue);
+      console.log(response);
+      setIsModalOpen(false);
+    }
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
+  const handleTextAreaChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    setTextValue(e.target.value);
+  };
+
   return (
     <div className={styles['askCard-wrapper']}>
       <Modal title="请输入问题" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <TextArea rows={4} placeholder="maxLength is 6" maxLength={200} />
+        <TextArea
+          value={textValue}
+          rows={4}
+          placeholder="maxLength is 6"
+          maxLength={200}
+          onChange={(e) => { handleTextAreaChange(e); }}
+
+        />
       </Modal>
       <div
         tabIndex={0}

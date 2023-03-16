@@ -1,0 +1,36 @@
+.question-wrapper {
+  box-sizing: border-box;
+  padding: 10px;
+  > li {
+    display: flex;
+    box-sizing: border-box;
+    padding: 10px;
+    background: rgb(241, 242, 242);
+    border-radius: 4px;
+    overflow: hidden;
+    border-bottom: 1px solid tomato;
+    cursor: pointer;
+    > :hover {
+      background: rgba(241, 242, 242, .3);
+    }
+  }
+}
+.id {
+  @include jcc;
+  width: 36px;
+  height: 100%;
+  border-radius: 4px;
+  background: gray;
+  color: white;
+}
+.title {
+  @include ellipsis(1);
+  flex: 1;
+  box-sizing: border-box;
+  margin: 0 10px;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.ctrl {
+  width: 200px;
+}
