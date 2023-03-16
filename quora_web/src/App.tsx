@@ -22,10 +22,11 @@ function APP() {
   const handleLogoClick: MouseEventHandler<HTMLDivElement> = () => {
     history.push('/');
   };
-  const userSignOut: MouseEventHandler<HTMLDivElement> = () => {
-    localStorage.removeItem('token');
-    location.reload();
-  };
+  const userSignOut:(MouseEventHandler<HTMLAnchorElement> &
+     MouseEventHandler<HTMLButtonElement>) | undefined = () => {
+       localStorage.removeItem('token');
+       window.location.reload();
+     };
   return (
     <div>
       <Header>

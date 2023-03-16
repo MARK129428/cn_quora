@@ -22,7 +22,7 @@ function ArticleView() {
   }, []);
   return (
     <div className={styles['view-wrapper']}>
-      <h1 className={styles['title']}>{title}</h1>
+      <h1 className={styles.title}>{title}</h1>
       <Divider />
       <Viewer value={value} />
     </div>
