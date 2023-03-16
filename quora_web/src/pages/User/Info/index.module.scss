@@ -1,0 +1,6 @@
+.avatar {
+  box-sizing: border-box;
+  max-width: 600px;
+  @include jcc;
+  margin-bottom: 30px;
+}

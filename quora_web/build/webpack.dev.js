@@ -19,7 +19,8 @@ const devConfig = merge({
           '/api': ''
         },
         "headers": {
-          "Authorization" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQYXNzd29yZCI6ImMyMGFkNGQ3NmZlOTc3NTlhYTI3YTBjOTliZmY2NzEwIiwiVXNlcm5hbWUiOiIxMiIsImlzcyI6InRlc3QiLCJzdWIiOiJzb21lYm9keSIsImF1ZCI6WyJzb21lYm9keV9lbHNlIl0sImV4cCI6MTY3ODg4Nzk3OCwibmJmIjoxNjc4ODAxNTc4LCJpYXQiOjE2Nzg4MDE1NzgsImp0aSI6IjEifQ.lpNXY1jIVXfuWN1dkg3Sf_9ztQydnxYRwK8mcB95TpA"
+          "Authorization" :
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJQYXNzd29yZCI6ImUxMGFkYzM5NDliYTU5YWJiZTU2ZTA1N2YyMGY4ODNlIiwiVXNlcm5hbWUiOiLlvKDkuIkiLCJpc3MiOiJ0ZXN0Iiwic3ViIjoic29tZWJvZHkiLCJhdWQiOlsic29tZWJvZHlfZWxzZSJdLCJleHAiOjE2NzkwMzUxMDgsIm5iZiI6MTY3ODk0ODcwOCwiaWF0IjoxNjc4OTQ4NzA4LCJqdGkiOiIxIn0.CdD8wXvPAHjoZW0Qmj94VDw-z2TDgKidSvl0dS3EXzs"
         },
         changeOrigin: true
       }

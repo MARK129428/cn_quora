@@ -36,11 +36,40 @@ const routes: RouteConfig[] = [
   },
   {
     path: '/article',
+    exact: true,
+    component: lazy(() => { return import('@page/Article'); }),
+  },
+  {
+    path: '/articleview/:id',
+    exact: true,
+    component: lazy(() => { return import('@page/ArticleView'); }),
+  },
+  {
+    path: '/article/:id',
     component: lazy(() => { return import('@page/Article'); }),
   },
   {
     path: '/user',
     component: lazy(() => { return import('@page/User'); }),
+    exact: false,
+    routes: [
+      {
+        path: '/user/info',
+        component: lazy(() => { return import('@page/User/Info'); }),
+      },
+      {
+        path: '/user/answer',
+        component: lazy(() => { return import('@page/User/Answer'); }),
+      },
+      {
+        path: '/user/question',
+        component: lazy(() => { return import('@page/User/Question'); }),
+      },
+      {
+        path: '/user/article',
+        component: lazy(() => { return import('@page/User/Article'); }),
+      },
+    ],
   },
   {
     path: '*',

@@ -21,7 +21,7 @@
     "useDefineForClassFields": true,
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/index.d.ts", "src/declaration.d.ts","src/**/*.tsx", "src/**/*.tsx", "src/pages/Home/index.jsx", "src/pages/Home/index.jsx", "src/index.d.ts"],
+  "include": ["src/index.d.ts", "src/declaration.d.ts","src/**/*.tsx", "src/**/*.tsx","src/**/*.ts", "src/pages/Home/index.jsx", "src/pages/Home/index.jsx", "src/index.d.ts"],
   "exclude": ["node_modules", ".vscode"],
   "files": ["src/index.d.ts"]
 }

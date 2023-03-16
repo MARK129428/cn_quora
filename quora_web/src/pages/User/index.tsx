@@ -1,75 +1,18 @@
-import {
-  Avatar,
-  Button,
-  Divider,
-  Form,
-  Input,
-  Space,
-} from 'antd';
-import { useRootStore } from '@model/rootModel';
-import { useCallback, useState } from 'react';
-import { UserOutlined } from '@ant-design/icons';
-import { SignUpMsg } from '@page/SignUp';
+import { Space } from 'antd';
+import { NavLink } from 'react-router-dom';
+import { renderRoutes } from 'react-router-config';
 import styles from './index.module.scss';
 
-function User() {
-  const { userModel } = useRootStore();
-  const { email, username, changeUser } = userModel;
-  const [editable, setEditabele] = useState(true);
-  const handleDisable = useCallback(() => {
-    setEditabele(!editable);
-  }, [editable]);
-  const onFinish = useCallback((values: SignUpMsg) => {
-    changeUser(values);
-    setEditabele(true);
-  }, []);
-
-  const onFinishFailed = useCallback((errorInfo: any) => {
-  }, []);
-
+function User(props: any) {
+  const { route } = props;
   return (
     <div className={styles['user-wrapper']}>
-      <h2>个人资料</h2>
-      <Divider />
-      <div className={styles.avatar}>
-        <Avatar size={84} icon={<UserOutlined />} />
-      </div>
-      <Form
-        name="basic"
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        initialValues={{ remember: true, username, email }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-        disabled={editable}
-      >
-        <Form.Item
-          label="Username"
-          name="username"
-          rules={[{ required: true, message: 'Please input your username!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[{ required: true, message: 'Please input your password!' }]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Space>
-            <Button size="large" disabled={false} onClick={handleDisable}>
-              修改
-            </Button>
-            <Button type="primary" size="large" htmlType="submit">
-              保存
-            </Button>
-          </Space>
-        </Form.Item>
-      </Form>
+      <Space>
+        <NavLink to="/user/answer" activeClassName={styles.active}>回答</NavLink>
+        <NavLink to="/user/question" activeClassName={styles.active}>问题</NavLink>
+        <NavLink to="/user/article" activeClassName={styles.active}>文章</NavLink>
+      </Space>
+      {renderRoutes(route.routes)}
     </div>
   );
 }

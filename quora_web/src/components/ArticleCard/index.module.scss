@@ -1,0 +1,25 @@
+.ArticleCard-wrapper {
+  @include jcsb;
+  height: 36px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+.id {
+  @include jcc;
+  width: 36px;
+  height: 100%;
+  border-radius: 4px;
+  background: gray;
+  color: white;
+}
+.title {
+  @include ellipsis(1);
+  flex: 1;
+  box-sizing: border-box;
+  margin: 0 10px;
+  font-weight: bolder;
+  font-size: 20px;
+}
+.ctrl {
+  width: 200px;
+}

@@ -1,8 +1,13 @@
 import { useHistory, withRouter, Link } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { Input, Button, Space, Avatar } from 'antd';
+import {
+  Input,
+  Button,
+  Space,
+  Avatar,
+} from 'antd';
 import ReactLoading from 'react-loading';
-import { ChangeEventHandler, MouseEventHandler, Suspense} from 'react';
+import { ChangeEventHandler, MouseEventHandler, Suspense } from 'react';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import Header from '@component/Header';
 import Logo from '@/assets/img/logo.svg';
@@ -16,6 +21,10 @@ function APP() {
   };
   const handleLogoClick: MouseEventHandler<HTMLDivElement> = () => {
     history.push('/');
+  };
+  const userSignOut: MouseEventHandler<HTMLDivElement> = () => {
+    localStorage.removeItem('token');
+    location.reload();
   };
   return (
     <div>
@@ -42,9 +51,12 @@ function APP() {
             {
               localStorage.getItem('token')
                 ? (
-                  <Link to="/user">
-                    <Avatar icon={<UserOutlined />} />
-                  </Link>
+                  <Space>
+                    <Link to="/user/answer">
+                      <Avatar icon={<UserOutlined />} />
+                    </Link>
+                    <Button onClick={userSignOut}>退出</Button>
+                  </Space>
                 )
                 : (
                   <>

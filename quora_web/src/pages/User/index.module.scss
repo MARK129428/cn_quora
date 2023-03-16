@@ -2,14 +2,13 @@
   background: white;
   overflow: hidden;
   box-sizing: border-box;
-  padding: 20px 0;
+  padding: 20px 10px;
   border-radius: 10px;
   min-height: calc(100vh - 50px);
+  font-weight: bolder;
 }
 
-.avatar {
-  box-sizing: border-box;
-  max-width: 600px;
-  @include jcc;
-  margin-bottom: 30px;
+.active {
+  color: #ccc;
+  border-bottom: 1px  solid gray;
 }
