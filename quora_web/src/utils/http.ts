@@ -1,7 +1,7 @@
 import axios, { CreateAxiosDefaults } from 'axios';
 import { message } from 'antd';
 
-const BaseUrl = process.env.NODE_ENV === 'development' ? '/api' : '';
+const BaseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/v1' : '';
 
 const baseConfig: CreateAxiosDefaults = {
   baseURL: BaseUrl,

@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"quora_server/src/api/article"
+	"quora_server/src/middlewares"
 
 	"quora_server/src/api/user"
 	"quora_server/src/db"
@@ -13,6 +14,7 @@ func main() {
 	db.Connect()
 	initalize.Model(db.DB)
 	r := gin.Default()
+	r.Use(middlewares.Cors())
 	// user
 	r.POST("/v1/user/signup", user.Signup)
 	r.POST("/v1/user/signin", user.Signin)

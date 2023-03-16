@@ -3,12 +3,11 @@ import {
   useState,
   useCallback,
 } from 'react';
+import { useHistory } from 'react-router';
 import ArticleCard from '@component/ArticleCard';
-import { Divider } from 'antd';
 import { IArticle } from '@page/Article';
 import { deleteArticle, getUserArticle } from '@/api/article';
 import styles from './index.module.scss';
-import { useHistory } from 'react-router';
 
 function Article() {
   const [articles, setArticles] = useState<IArticle[]>([]);
