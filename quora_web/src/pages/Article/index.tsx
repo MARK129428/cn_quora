@@ -2,11 +2,9 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import gfm from '@bytemd/plugin-gfm';
 import highlight from '@bytemd/plugin-highlight';
-import { Editor, Viewer } from '@bytemd/react';
 import 'github-markdown-css';
-import { Button, Input } from 'antd';
+import KEditor from '@component/Editor';
 import { getArticle, patchArticle, postArticle } from '@/api/article';
-import styles from './index.module.scss';
 
 const plugins = [
   gfm(),
@@ -55,27 +53,13 @@ function Article() {
     setValue(v);
   }, [value]);
   return (
-    <>
-      <Input
-        placeholder="请输入标题"
-        size="large"
-        value={title}
-        onChange={handleTitleChange}
-      />
-      <Editor
-        value={value}
-        plugins={plugins}
-        onChange={handleEditorChange}
-      />
-      <Button
-        className={styles.fixed}
-        shape="circle"
-        type="primary"
-        onClick={handleSubmit}
-      >
-        上传
-      </Button>
-    </>
+    <KEditor
+      title={title}
+      value={value}
+      handleSubmit={handleSubmit}
+      handleTitleChange={handleTitleChange}
+      handleEditorChange={handleEditorChange}
+    />
   );
 }
 

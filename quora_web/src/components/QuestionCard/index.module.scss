@@ -15,9 +15,11 @@
 }
 .content {
   @include ellipsis(1);
+  font-weight: bolder;
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 .ctrl {
-  height: 44px;
   width: 100px;
   padding: 10px;
   box-sizing: border-box;

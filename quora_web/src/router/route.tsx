@@ -27,6 +27,15 @@ const routes: RouteConfig[] = [
     component: lazy(() => { return import('@page/Answer'); }),
   },
   {
+    path: '/answer/:id',
+    exact: true,
+    component: lazy(() => { return import('@page/AnswerDetail'); }),
+  },
+  {
+    path: '/postanswer/:questionId',
+    component: lazy(() => { return import('@page/AnswerPost'); }),
+  },
+  {
     path: '/signin',
     component: lazy(() => { return import('@page/SignIn'); }),
   },

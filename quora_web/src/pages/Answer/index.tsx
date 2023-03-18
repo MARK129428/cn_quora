@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 import { IQuestion } from '@page/User/Question';
 import QuestionCard from '@component/QuestionCard';
 import { getAllQuestions, postQuestionLike } from '@/api/question';
@@ -30,6 +31,8 @@ function Answer() {
   const handleDislike = (id: number) => {
     setDislikeIds(dislikeIds.add(id));
   };
+
+  const history = useHistory();
   return (
     <div className={styles['answer-wrapper']}>
       <ul>
@@ -38,7 +41,7 @@ function Answer() {
             return (
               <li
                 key={item.id}
-                onClick={() => {}}
+                onClick={() => { history.push(`/answer/${item.id}`); }}
                 role="presentation"
               >
                 <QuestionCard
