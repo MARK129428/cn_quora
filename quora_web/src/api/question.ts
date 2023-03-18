@@ -13,3 +13,17 @@ export function getQuestion(questionId: number) {
 export function getUserQuestions() {
   return instance.get('/user/questions');
 }
+
+export function getAllQuestions() {
+  return instance.get('/questions');
+}
+interface IQuestionLike {
+  likeIds: Set<number>,
+  dislikeIds: Set<number>
+}
+export function postQuestionLike(data: IQuestionLike) {
+  return instance.post('/questionlike', {
+    likeIds: `${[...data.likeIds]}`,
+    dislikeIds: `${[...data.dislikeIds]}`,
+  });
+}

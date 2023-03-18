@@ -1,0 +1,10 @@
+.answer-wrapper {
+  background: white;
+  overflow: hidden;
+  border-radius: 10px;
+  > ul {
+    > li {
+      padding: 5px;
+    }
+  }
+}

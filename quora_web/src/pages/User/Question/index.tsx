@@ -7,13 +7,15 @@ export interface IQuestion {
   id?: number;
   Content?: string;
   UserId?: number;
+  LikeNum?: number;
+  DislikeNum?: number;
+  IsUserLike?: boolean | null;
 }
 function Question() {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const init = useCallback(async () => {
     const { data }: { data: IQuestion[]} = await getUserQuestions();
     setQuestions(data);
-    console.log(data);
   }, []);
 
   useEffect(() => {

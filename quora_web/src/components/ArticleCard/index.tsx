@@ -20,8 +20,8 @@ function ArticleCard({
       <div className={styles.title}>{title}</div>
       <div className={styles.ctrl}>
         <Space>
-          <Button onClick={() => { deleteItem(id); }} type="primary" danger>删除</Button>
-          <Button onClick={() => { changeItem(id); }} type="primary">修改</Button>
+          <Button onClick={(e) => { e.stopPropagation(); deleteItem(id); }} type="primary" danger>删除</Button>
+          <Button onClick={(e) => { e.stopPropagation(); changeItem(id); }} type="primary">修改</Button>
         </Space>
       </div>
     </div>

@@ -13,10 +13,18 @@ a {
 [role] {
   cursor: pointer;
 }
+li {
+  list-style: none;
+}
 
 .bytemd {
   min-height: calc(100vh - 100px) !important;
 }
 .markdown-body {
   min-height: calc(100vh - 100px) !important;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
 }
