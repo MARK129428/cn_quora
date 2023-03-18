@@ -1,9 +1,9 @@
-package question
+package answer
 
-type Question struct {
+type Answer struct {
 	ID      int64  `json:"id,omitempty" gorm:"primaryKey"`
+	Title string `json:"title,omitempty" gorm:""`
 	Content string `json: "content"`
 	UserId  string `json: "userId"`
-	Like int64 `json: "like" default:0`
-	DisLike int64 `json: "dislike" default:0`
+	QuestionId int64 `json: "questionId"`
 }

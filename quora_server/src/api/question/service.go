@@ -36,3 +36,17 @@ func GetUserQuestionsService(id string) *[]Question {
 	}
 	return &questions
 }
+
+func GetAllQuestionService() *[]Question {
+	var questions []Question
+	find := db.DB.
+		Limit(10).
+		Offset(0).
+		Find(&questions)
+	if find.RowsAffected == 0 {
+		return nil
+	}
+	return &questions
+}
+
+

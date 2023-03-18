@@ -4,6 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"quora_server/src/api/article"
+	"quora_server/src/api/questionlike"
+	"quora_server/src/api/user"
 )
 
 func UploadQuestion(ctx *gin.Context) {
@@ -83,7 +85,7 @@ func GetQuestion(ctx *gin.Context) {
 	if question == nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "error",
-			"data":    "数据未找到",
+			"data": nil,
 		})
 		return
 	}
@@ -92,21 +94,69 @@ func GetQuestion(ctx *gin.Context) {
 		"data":    question,
 	})
 }
-
+type ResQuestion struct {
+	LikeNum int64
+	DislikeNum int64
+	IsUserLike *bool
+	Question
+}
 func GetUserQuestions(ctx *gin.Context) {
 	token := ctx.GetStringMapString("token")
 	user := article.GetUserIDByToken(token)
 	questions := GetUserQuestionsService(user.ID)
-
+	var resQuestion []ResQuestion
+	for _, question := range *questions {
+		likeNum, dislikeNum := questionlike.GetQuestionLikeNumService(question.ID)
+		resQuestion = append(resQuestion, ResQuestion{
+			Question: question,
+			LikeNum: likeNum,
+			DislikeNum: dislikeNum,
+		})
+	}
 	if questions == nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "error",
-			"data":    "数据未找到",
+			"data":    nil,
 		})
 		return
 	}
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "success",
-		"data":    questions,
+		"data":    &resQuestion,
+	})
+}
+
+func GetAllQuestions(ctx *gin.Context) {
+	token := ctx.GetStringMapString("token")
+	var user *user.User
+	if token != nil {
+		user = article.GetUserIDByToken(token)
+	}
+	questions := GetAllQuestionService()
+	var resQuestion []ResQuestion
+	for _, question := range *questions {
+		like, dislike := questionlike.GetQuestionLikeNumService(question.ID)
+		var isUserLike *bool = nil
+		if user != nil {
+			isUserLike = questionlike.GetUseLikeQuestion(question.ID, user.ID)
+		}
+		resQuestion = append(resQuestion, ResQuestion{
+			Question: question,
+			LikeNum: like,
+			DislikeNum: dislike,
+			IsUserLike: isUserLike,
+		})
+
+	}
+	if questions == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "error",
+			"data":    nil,
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "success",
+		"data":    resQuestion,
 	})
 }

@@ -7,9 +7,10 @@ import (
 
 func UploadArticle(ctx *gin.Context)  {
 	token := ctx.GetStringMapString("token")
+	user := GetUserIDByToken(token)
 	title := ctx.PostForm("title")
 	content := ctx.PostForm("content")
-	user := GetUserIDByToken(token)
+
 
 	article := Article{
 		Title: title,
@@ -85,8 +86,7 @@ func GetArticle(ctx *gin.Context)  {
 
 	if article == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"message": "error",
-			"data": "数据未找到",
+			"data": nil,
 		})
 		return
 	}
@@ -103,8 +103,7 @@ func GetUserArticles(ctx *gin.Context)  {
 
 	if articles == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"message": "error",
-			"data": "数据未找到",
+			"data": nil,
 		})
 		return
 	}

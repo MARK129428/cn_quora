@@ -2,8 +2,10 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"quora_server/src/api/answer"
 	"quora_server/src/api/article"
 	"quora_server/src/api/question"
+	"quora_server/src/api/questionlike"
 	"quora_server/src/middlewares"
 
 	"quora_server/src/api/user"
@@ -35,5 +37,17 @@ func main() {
 	//r.PATCH("/v1/question/:questionId", user.LoginRequest, question.UpdateQuestion)
 	r.GET("/v1/question/:questionId", question.GetQuestion)
 	r.GET("/v1/user/questions", user.LoginRequest, question.GetUserQuestions)
+	r.GET("/v1/questions", question.InjectToken, question.GetAllQuestions)
+
+	// questionLike
+	r.POST("/v1/questionlike", user.LoginRequest, questionlike.UploadQuestionLike)
+
+	// answer
+	r.POST("/v1/answer/:questionId", user.LoginRequest, answer.PostAnswer)
+	r.DELETE("/v1/answer/:answerId", user.LoginRequest, answer.DeleteAnswer)
+	r.PATCH("/v1/answer/:answerId", user.LoginRequest, answer.PatchAnswer)
+	r.GET("/v1/allanswers/:questionId", answer.GetAllAnswerByQuestionId)
+	r.GET("/v1/user/answers", user.LoginRequest, answer.GetAllAnswerByUserId)
+	r.GET("/v1/answer/:answerId", answer.GetAllAnswerById)
 	r.Run(":9000") // 监听并在 0.0.0.0:8080 上启动服务
 }
