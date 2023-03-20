@@ -20,3 +20,7 @@ export function getArticle(articleId: string) {
 export function getUserArticle() {
   return instance.get('/user/articles');
 }
+
+export function getArticles() {
+  return instance.get('/articles');
+}

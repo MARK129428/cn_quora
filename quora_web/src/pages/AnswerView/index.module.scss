@@ -1,0 +1,11 @@
+.view-wrapper {
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  background: white;
+}
+
+.title {
+  @include jcc;
+  font-weight: bolder;
+}

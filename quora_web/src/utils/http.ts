@@ -22,7 +22,10 @@ instance.interceptors.request.use((config) => {
   return Promise.reject(error);
 });
 
-instance.interceptors.response.use((response) => {
+instance.interceptors.response.use((response: any) => {
+  if (!response.showMessage) {
+    return response.data;
+  }
   if (response.data.message === 'error') {
     message.error(response.data.data);
   } else if (response.data.message === 'success') {

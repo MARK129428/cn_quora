@@ -7,6 +7,12 @@ export function createQuestion(content: string) {
 }
 
 export function getQuestion(questionId: number) {
+  instance.interceptors.response.use((response: any) => {
+    response.showMessage = false;
+    return response;
+  }, (error) => {
+    return Promise.reject(error);
+  });
   return instance.get(`/question/${questionId}`);
 }
 
@@ -26,4 +32,8 @@ export function postQuestionLike(data: IQuestionLike) {
     likeIds: `${[...data.likeIds]}`,
     dislikeIds: `${[...data.dislikeIds]}`,
   });
+}
+
+export function getHotTopic() {
+  return instance('/getHotTopic');
 }

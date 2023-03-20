@@ -15,6 +15,8 @@ export interface IArticle {
   id?: number,
   title?: string;
   content?: string;
+  UserId?: string;
+  Content?: string;
 }
 
 function Article() {

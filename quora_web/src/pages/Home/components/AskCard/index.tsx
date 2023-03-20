@@ -84,7 +84,7 @@ function AskCard() {
           </Link>
         </div>
         |
-        <div>
+        <div style={!localStorage.getItem('token') ? { cursor: 'not-allowed', pointerEvents: 'none' } : {}}>
           <Link to="/article">
             <Space>
               <img src={Blog} alt="文章" />
