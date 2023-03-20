@@ -3,6 +3,7 @@ package question
 import (
 	"fmt"
 	"quora_server/src/db"
+	"strconv"
 )
 
 func GetQuestionService(questionId string) *Question {
@@ -24,29 +25,35 @@ func InsertQuestion(question *Question) *Question {
 	return question
 }
 
-func GetUserQuestionsService(id string) *[]Question {
+func GetUserQuestionsService(id string, limit string, page string) (*[]Question, *int64) {
 	var questions []Question
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
 	find := db.DB.
-		Limit(10).
-		Offset(0).
+		Limit(Limit).
+		Offset(Page*Limit).
 		Where("user_id =?", id).
 		Find(&questions)
+	var count int64
+	db.DB.Model(&Question{}).Where("user_id =?", id).Count(&count)
 	if find.RowsAffected == 0 {
-		return nil
+		return nil, nil
 	}
-	return &questions
+	return &questions, &count
 }
 
-func GetAllQuestionService() *[]Question {
+func GetAllQuestionService(limit string, page string) (*[]Question, *int64) {
 	var questions []Question
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
 	find := db.DB.
-		Limit(10).
-		Offset(0).
+		Limit(Limit).
+		Offset(Page * Limit).
 		Find(&questions)
+	var count int64
+	db.DB.Model(&Question{}).Count(&count)
 	if find.RowsAffected == 0 {
-		return nil
+		return nil, nil
 	}
-	return &questions
+	return &questions, &count
 }
-
-

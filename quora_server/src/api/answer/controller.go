@@ -15,56 +15,61 @@ func PostAnswer(ctx *gin.Context) {
 
 	atoi, _ := strconv.Atoi(questionId)
 	answer := Answer{
-		Title: title,
-		Content: content,
-		UserId: user.ID,
+		Title:      title,
+		Content:    content,
+		UserId:     user.ID,
 		QuestionId: int64(atoi),
 	}
 	createAnswer := CreateAnswer(&answer)
 	if createAnswer == nil {
 		ctx.JSON(200, gin.H{
 			"message": "error",
-			"data": "提交失败",
+			"data":    "提交失败",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
 		"message": "success",
-		"data": createAnswer,
+		"data":    createAnswer,
 	})
 }
 
-
 func GetAllAnswerByQuestionId(ctx *gin.Context) {
 	questionId := ctx.Param("questionId")
-	answers := GetAllAnswerByQuestionIdService(questionId)
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	answers, count := GetAllAnswerByQuestionIdService(questionId, limit, page)
 	if answers == nil {
 		ctx.JSON(200, gin.H{
-			"data": "无数据",
+			"data":    "无数据",
 			"message": "error",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
 		"message": "success",
-		"data": answers,
+		"data":    answers,
+		"total":   count,
 	})
 }
 
 func GetAllAnswerByUserId(ctx *gin.Context) {
 	token := ctx.GetStringMapString("token")
 	user := article.GetUserIDByToken(token)
-	answers := GetAllAnswerByUserIdService(user.ID)
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	answers, count := GetAllAnswerByUserIdService(user.ID, limit, page)
 	if answers == nil {
 		ctx.JSON(200, gin.H{
-			"data": "无数据",
+			"data":    "无数据",
 			"message": "error",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
 		"message": "success",
-		"data": answers,
+		"data":    answers,
+		"total":   count,
 	})
 }
 
@@ -74,13 +79,13 @@ func GetAllAnswerById(ctx *gin.Context) {
 	if answer == nil {
 		ctx.JSON(200, gin.H{
 			"message": "error",
-			"data": "提交失败",
+			"data":    "提交失败",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
 		"message": "success",
-		"data": answer,
+		"data":    answer,
 	})
 }
 
@@ -93,13 +98,13 @@ func DeleteAnswer(ctx *gin.Context) {
 
 	if answer == nil {
 		ctx.JSON(200, gin.H{
-			"data": "删除失败",
+			"data":    "删除失败",
 			"message": "error",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
-		"data": answer,
+		"data":    answer,
 		"message": "success",
 	})
 }
@@ -114,13 +119,28 @@ func PatchAnswer(ctx *gin.Context) {
 	answer := PatchAnswerService(id, user.ID, title, content)
 	if answer == nil {
 		ctx.JSON(200, gin.H{
-			"data": "删除失败",
+			"data":    "删除失败",
 			"message": "error",
 		})
 		return
 	}
 	ctx.JSON(200, gin.H{
-		"data": answer,
+		"data":    answer,
+		"message": "success",
+	})
+}
+
+func GetHotTopic(ctx *gin.Context) {
+	service := GetHotTopicService()
+	if service == nil {
+		ctx.JSON(200, gin.H{
+			"data":    "删除失败",
+			"message": "error",
+		})
+		return
+	}
+	ctx.JSON(200, gin.H{
+		"data":    service,
 		"message": "success",
 	})
 }

@@ -27,9 +27,14 @@ const routes: RouteConfig[] = [
     component: lazy(() => { return import('@page/Answer'); }),
   },
   {
-    path: '/answer/:id',
+    path: '/answer/:questionId',
     exact: true,
     component: lazy(() => { return import('@page/AnswerDetail'); }),
+  },
+  {
+    path: '/answerview/:answerId',
+    exact: true,
+    component: lazy(() => { return import('@page/AnswerView'); }),
   },
   {
     path: '/postanswer/:questionId',

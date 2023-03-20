@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"quora_server/src/api/user"
 	"quora_server/src/db"
+	"strconv"
 )
 
 func GetUserIDByToken(token map[string]string) *user.User {
@@ -24,7 +25,7 @@ func InsertArticle(article *Article) *Article {
 	return article
 }
 
-func DeleteArticleService(deleteMsg map[string]string) int64  {
+func DeleteArticleService(deleteMsg map[string]string) int64 {
 	var article Article
 	delete := db.DB.Where("id = ? && user_id = ?", deleteMsg["articleId"], deleteMsg["userId"]).Delete(&article)
 	return delete.RowsAffected
@@ -53,15 +54,36 @@ func GetArticleService(articleId string) *Article {
 	return &article
 }
 
-func GetUserArticlesService(id string) *[]Article {
+func GetUserArticlesService(id string, limit string, page string) (*[]Article, *int64) {
 	var articles []Article
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
+	var count int64
 	find := db.DB.
-		Limit(10).
-		Offset(0).
+		Model(&Article{}).
+		Limit(Limit).
+		Offset(Page*Limit).
 		Where("user_id =?", id).
 		Find(&articles)
+	db.DB.Model(&Article{}).Where("user_id =?", id).Count(&count)
 	if find.RowsAffected == 0 {
-		return nil
+		return nil, nil
 	}
-	return &articles
+	return &articles, &count
+}
+
+func GetArticlesService(limit string, page string) (*[]Article, *int64) {
+	var articles []Article
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
+	find := db.DB.
+		Limit(Limit).
+		Offset(Page * Limit).
+		Find(&articles)
+	var count int64
+	db.DB.Model(&Article{}).Count(&count)
+	if find.RowsAffected == 0 {
+		return nil, nil
+	}
+	return &articles, &count
 }

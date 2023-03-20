@@ -31,7 +31,7 @@ function Answer() {
   }, []);
 
   const handleItemClick = useCallback((id: number) => {
-    history.push(`/answer/${id}`);
+    history.push(`/answerview/${id}`);
   }, []);
 
   return (

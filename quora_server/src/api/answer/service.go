@@ -3,6 +3,7 @@ package answer
 import (
 	"fmt"
 	"quora_server/src/db"
+	"strconv"
 )
 
 func CreateAnswer(answer *Answer) *Answer {
@@ -14,30 +15,38 @@ func CreateAnswer(answer *Answer) *Answer {
 	return answer
 }
 
-func GetAllAnswerByQuestionIdService(questionId string) *[]Answer {
+func GetAllAnswerByQuestionIdService(questionId string, limit string, page string) (*[]Answer, *int64) {
 	var answers []Answer
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
 	find := db.DB.
-		Limit(10).
-		Offset(0).
+		Limit(Limit).
+		Offset(Page).
 		Where("question_id =?", questionId).
 		Find(&answers)
+	var count int64
+	db.DB.Model(&Answer{}).Where("question_id =?", questionId).Count(&count)
 	if find.RowsAffected == 0 {
-		return nil
+		return nil, nil
 	}
-	return &answers
+	return &answers, &count
 }
 
-func GetAllAnswerByUserIdService(userId string) *[]Answer {
+func GetAllAnswerByUserIdService(userId string, limit string, page string) (*[]Answer, *int64) {
 	var answers []Answer
+	Limit, _ := strconv.Atoi(limit)
+	Page, _ := strconv.Atoi(page)
 	find := db.DB.
-		Limit(10).
-		Offset(0).
+		Limit(Limit).
+		Offset(Page).
 		Where("user_id =?", userId).
 		Find(&answers)
+	var count int64
+	db.DB.Model(&Answer{}).Where("user_id =?", userId).Count(&count)
 	if find.RowsAffected == 0 {
-		return nil
+		return nil, nil
 	}
-	return &answers
+	return &answers, &count
 }
 
 func GetAllAnswerByIdService(Id string) *Answer {
@@ -67,5 +76,21 @@ func PatchAnswerService(answerId string, userId string, title string, content st
 	if update.RowsAffected == 0 {
 		return nil
 	}
-	return &Answer{ Title: title, Content: content}
+	return &Answer{Title: title, Content: content}
+}
+
+type QuestionCount struct {
+	QuestionId int
+	Count      int
+}
+
+func GetHotTopicService() []*QuestionCount {
+	var datas []*QuestionCount
+	exec := db.DB.
+		Raw("SELECT question_id, COUNT(*) AS `count` FROM answers GROUP BY question_id ORDER BY `count` DESC LIMIT 10").
+		Scan(&datas)
+	if exec.RowsAffected == 0 {
+		return nil
+	}
+	return datas
 }

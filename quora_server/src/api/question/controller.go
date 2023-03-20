@@ -85,7 +85,7 @@ func GetQuestion(ctx *gin.Context) {
 	if question == nil {
 		ctx.JSON(http.StatusOK, gin.H{
 			"message": "error",
-			"data": nil,
+			"data":    nil,
 		})
 		return
 	}
@@ -94,22 +94,26 @@ func GetQuestion(ctx *gin.Context) {
 		"data":    question,
 	})
 }
+
 type ResQuestion struct {
-	LikeNum int64
+	LikeNum    int64
 	DislikeNum int64
 	IsUserLike *bool
 	Question
 }
+
 func GetUserQuestions(ctx *gin.Context) {
 	token := ctx.GetStringMapString("token")
 	user := article.GetUserIDByToken(token)
-	questions := GetUserQuestionsService(user.ID)
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
+	questions, count := GetUserQuestionsService(user.ID, limit, page)
 	var resQuestion []ResQuestion
 	for _, question := range *questions {
 		likeNum, dislikeNum := questionlike.GetQuestionLikeNumService(question.ID)
 		resQuestion = append(resQuestion, ResQuestion{
-			Question: question,
-			LikeNum: likeNum,
+			Question:   question,
+			LikeNum:    likeNum,
 			DislikeNum: dislikeNum,
 		})
 	}
@@ -123,16 +127,19 @@ func GetUserQuestions(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "success",
 		"data":    &resQuestion,
+		"total":   count,
 	})
 }
 
 func GetAllQuestions(ctx *gin.Context) {
 	token := ctx.GetStringMapString("token")
+	limit := ctx.Query("limit")
+	page := ctx.Query("page")
 	var user *user.User
 	if token != nil {
 		user = article.GetUserIDByToken(token)
 	}
-	questions := GetAllQuestionService()
+	questions, count := GetAllQuestionService(limit, page)
 	var resQuestion []ResQuestion
 	for _, question := range *questions {
 		like, dislike := questionlike.GetQuestionLikeNumService(question.ID)
@@ -141,8 +148,8 @@ func GetAllQuestions(ctx *gin.Context) {
 			isUserLike = questionlike.GetUseLikeQuestion(question.ID, user.ID)
 		}
 		resQuestion = append(resQuestion, ResQuestion{
-			Question: question,
-			LikeNum: like,
+			Question:   question,
+			LikeNum:    like,
 			DislikeNum: dislike,
 			IsUserLike: isUserLike,
 		})
@@ -158,5 +165,6 @@ func GetAllQuestions(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, gin.H{
 		"message": "success",
 		"data":    resQuestion,
+		"total":   count,
 	})
 }
