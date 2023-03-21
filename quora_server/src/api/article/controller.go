@@ -105,7 +105,7 @@ func GetUserArticles(ctx *gin.Context) {
 	fmt.Println(count, limit, page, "xxxxx")
 	if articles == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": nil,
+			"data": []Article{},
 		})
 		return
 	}
@@ -122,7 +122,7 @@ func GetArticles(ctx *gin.Context) {
 	articles, count := GetArticlesService(limit, page)
 	if articles == nil {
 		ctx.JSON(http.StatusOK, gin.H{
-			"data": nil,
+			"data": []Article{},
 		})
 		return
 	}

@@ -16,7 +16,7 @@ func LoginRequest(ctx *gin.Context) {
 	auth := header["Authorization"]
 	if auth == nil {
 		fmt.Errorf("结果错误，返回")
-		ctx.JSON(http.StatusBadRequest, gin.H{"code": 400, "message": "缺少authorization"})
+		ctx.JSON(http.StatusBadRequest, gin.H{"code": 401, "message": "缺少authorization"})
 		ctx.Abort()
 		return
 	} else {

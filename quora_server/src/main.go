@@ -40,6 +40,7 @@ func main() {
 	r.GET("/v1/question/:questionId", question.GetQuestion)
 	r.GET("/v1/user/questions", user.LoginRequest, question.GetUserQuestions)
 	r.GET("/v1/questions", question.InjectToken, question.GetAllQuestions)
+	r.GET("/v1/search", question.GetSearchQuestion)
 
 	// questionLike
 	r.POST("/v1/questionlike", user.LoginRequest, questionlike.UploadQuestionLike)

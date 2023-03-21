@@ -57,3 +57,12 @@ func GetAllQuestionService(limit string, page string) (*[]Question, *int64) {
 	}
 	return &questions, &count
 }
+
+func SearchQuestionService(str string) *[]Question {
+	var questions []Question
+	find := db.DB.Where("content LIKE ?", fmt.Sprintf("%s%s%s", "%", str, "%")).Limit(5).Find(&questions)
+	if find.RowsAffected == 0 {
+		return nil
+	}
+	return &questions
+}

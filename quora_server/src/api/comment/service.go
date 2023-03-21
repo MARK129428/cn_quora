@@ -25,7 +25,7 @@ func GetCommentsByAnswerIdService(answerId string, limit string, page string) ([
 		Where("answer_id = ?", answerId).
 		Find(&comments)
 	var count int64
-	db.DB.Model(&Comment{}).Count(&count)
+	db.DB.Model(&Comment{}).Where("answer_id = ?", answerId).Count(&count)
 	if find.RowsAffected == 0 {
 		return nil, nil
 	}

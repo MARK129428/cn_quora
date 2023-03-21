@@ -40,7 +40,7 @@ func GetCommentsByAnswerId(ctx *gin.Context) {
 	if answers == nil {
 		ctx.JSON(200, gin.H{
 			"message": "error",
-			"data":    "无评论数据",
+			"data":    []Comment{},
 		})
 		return
 	}

@@ -41,7 +41,7 @@ func GetAllAnswerByQuestionId(ctx *gin.Context) {
 	answers, count := GetAllAnswerByQuestionIdService(questionId, limit, page)
 	if answers == nil {
 		ctx.JSON(200, gin.H{
-			"data":    "无数据",
+			"data":    []Answer{},
 			"message": "error",
 		})
 		return
@@ -61,7 +61,7 @@ func GetAllAnswerByUserId(ctx *gin.Context) {
 	answers, count := GetAllAnswerByUserIdService(user.ID, limit, page)
 	if answers == nil {
 		ctx.JSON(200, gin.H{
-			"data":    "无数据",
+			"data":    []Answer{},
 			"message": "error",
 		})
 		return

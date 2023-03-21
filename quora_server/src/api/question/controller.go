@@ -168,3 +168,19 @@ func GetAllQuestions(ctx *gin.Context) {
 		"total":   count,
 	})
 }
+
+func GetSearchQuestion(ctx *gin.Context) {
+	query := ctx.Query("q")
+	service := SearchQuestionService(query)
+	if service == nil {
+		ctx.JSON(http.StatusOK, gin.H{
+			"message": "error",
+			"data":    []Question{},
+		})
+		return
+	}
+	ctx.JSON(http.StatusOK, gin.H{
+		"message": "success",
+		"data":    service,
+	})
+}
