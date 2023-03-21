@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
 }
+
 @mixin jcsb {
   display: flex;
   justify-content: space-between;
@@ -11,9 +12,9 @@
 
 @mixin ellipsis($linenum) {
   display: -webkit-box; /* 盒子类型 */
+  overflow: hidden;
+  text-overflow: ellipsis; /* 溢出时用... */
   -webkit-box-orient: vertical;
   word-break: break-all; /* 自动换行的处理方法。允许在单词内换行 */
-  text-overflow: ellipsis; /* 溢出时用... */
-  overflow: hidden;
   -webkit-line-clamp: $linenum;
 }

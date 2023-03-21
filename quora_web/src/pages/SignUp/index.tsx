@@ -1,25 +1,41 @@
-import { Button, Form, Input } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  message,
+} from 'antd';
 import styles from './index.module.scss';
 import { userSignUp } from '@/api/user';
+import { useHistory } from 'react-router';
 
 export interface SignUpMsg {
   username: string;
   password?: string;
   email?: string
 }
-const onFinish = async (values: any) => {
-  const signUpMsg: SignUpMsg = {
-    username: values.username,
-    password: values.newPassword,
-  };
-  const response = await userSignUp(signUpMsg);
-};
 
 const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo);
 };
 
 function SignIn() {
+  const history = useHistory();
+  const onFinish = async (values: any) => {
+    const signUpMsg: SignUpMsg = {
+      username: values.username,
+      password: values.newPassword,
+    };
+    const response = await userSignUp(signUpMsg);
+    if (response.message! === 'error') {
+      message.error(response?.data || 'error');
+    } else {
+      message.success('注册成功');
+      setTimeout(() => {
+        history.push('/signin');
+      }, 1000);
+    }
+  };
+ 
   return (
     <div className={styles['SignUp-wrapper']}>
       <div className={styles['login-card']}>

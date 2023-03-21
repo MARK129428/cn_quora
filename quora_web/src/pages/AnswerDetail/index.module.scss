@@ -1,53 +1,61 @@
 .question-title {
-  background: white;
-  border-radius: 5px;
   overflow: hidden;
-  box-sizing: border-box;
+  border-radius: 5px;
   padding: 20px;
+  background: white;
+  box-sizing: border-box;
 }
 
 .question-wrapper {
   box-sizing: border-box;
   padding: 10px;
+
   > li {
     display: flex;
-    box-sizing: border-box;
-    padding: 10px;
-    background: rgb(241, 242, 242);
-    border-radius: 4px;
     overflow: hidden;
     border-bottom: 1px solid tomato;
+    border-radius: 4px;
+    padding: 10px;
+    background: rgb(241 242 242);
+    box-sizing: border-box;
     cursor: pointer;
+
     > :hover {
-      background: rgba(241, 242, 242, .3);
+      background: rgb(241 242 242 / 30%);
     }
   }
 }
+
 .id {
   @include jcc;
+
+  border-radius: 4px;
   width: 36px;
   height: 100%;
-  border-radius: 4px;
-  background: gray;
   color: white;
+  background: gray;
 }
+
 .title {
   @include ellipsis(1);
+
+  margin: 0 10px;
+  font-size: 20px;
+  font-weight: bolder;
   flex: 1;
   box-sizing: border-box;
-  margin: 0 10px;
-  font-weight: bolder;
-  font-size: 20px;
 }
+
 .ctrl {
   width: 200px;
 }
 
 .answer-detail {
-  background: white;
   min-height: calc(100vh - 100px);
+  background: white;
+
   > h2 {
-    font-weight: bolder;
     padding-left: 20px;
+    font-weight: bolder;
   }
 }

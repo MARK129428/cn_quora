@@ -1,9 +1,11 @@
 .title {
   @include ellipsis(1);
+
   margin-top: 20px;
   font-weight: bolder;
+
   &:hover {
-    color: tomato;
     text-decoration: underline;
+    color: tomato;
   }
 }

@@ -1,13 +1,16 @@
 .SignIn-wrapper {
   width: 100%;
+
   @include jcc;
+
   height: calc(100vh - 50px);
 }
 
 .login-card {
   @include jcc;
+
+  border: 2px solid #CCCCCC;
+  border-radius: 20px;
   width: 520px;
   height: 450px;
-  border: 2px solid #ccc;
-  border-radius: 20px;
 }

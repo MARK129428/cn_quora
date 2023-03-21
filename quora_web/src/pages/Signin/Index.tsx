@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useHistory } from 'react-router';
 import { useRootStore } from '@model/rootModel';
 import { SignUpMsg } from '@page/SignUp';
@@ -16,7 +16,14 @@ function SignIn() {
     const { loadUser } = userModel;
     const response = await loadUser(signUpMsg);
     console.log(response);
-    history.push('/');
+    if (response?.message! === 'error') {
+      message.error(response?.data || 'error');
+    } else {
+      message.success('success');
+    }
+    setTimeout(() => {
+      history.push('/');
+    }, 1000);
   }, []);
 
   const onFinishFailed = useCallback((errorInfo: any) => {

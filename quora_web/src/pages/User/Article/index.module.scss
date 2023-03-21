@@ -1,15 +1,17 @@
 .article-wrapper {
   box-sizing: border-box;
   padding: 10px;
+
   > li {
-    box-sizing: border-box;
-    padding: 10px;
-    background: rgb(241, 242, 242);
-    border-radius: 4px;
     overflow: hidden;
     border-bottom: 1px solid tomato;
+    border-radius: 4px;
+    padding: 10px;
+    background: rgb(241 242 242);
+    box-sizing: border-box;
+
     :hover {
-      background: rgba(255, 255, 255 , 0.4);
+      background: rgb(255 255 255 / 40%);
     }
   }
 }

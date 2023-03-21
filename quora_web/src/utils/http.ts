@@ -2,7 +2,7 @@ import axios, { CreateAxiosDefaults } from 'axios';
 import { message } from 'antd';
 import { useHistory } from 'react-router';
 
-const BaseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/v1' : '';
+const BaseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8888/v1' : 'http://43.137.35.123:8888/v1';
 
 const baseConfig: CreateAxiosDefaults = {
   baseURL: BaseUrl,
@@ -24,9 +24,6 @@ instance.interceptors.request.use((config) => {
 });
 
 instance.interceptors.response.use((response: any) => {
-  if (response.data.message === 'error') {
-    message.error(response.data.data);
-  }
   return response.data;
 }, (error) => {
   // if (error.response.data.code === 401) {

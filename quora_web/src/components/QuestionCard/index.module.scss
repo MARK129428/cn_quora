@@ -1,32 +1,40 @@
 .question-card{
   @include jcsb;
 }
+
 .info {
   @include jcc;
 }
+
 .id {
-  background: rgb(241, 242, 242);
-  height: 44px;
-  width: 44px;
-  @include jcc;
   overflow: hidden;
-  border-radius: 4px;
   margin-right: 10px;
+  border-radius: 4px;
+  width: 44px;
+  height: 44px;
+  background: rgb(241 242 242);
+
+  @include jcc;
 }
+
 .content {
   @include ellipsis(1);
-  font-weight: bolder;
-  font-size: 20px;
+
   margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: bolder;
 }
+
 .ctrl {
-  width: 100px;
-  padding: 10px;
-  box-sizing: border-box;
-  @include jcsb;
   overflow: hidden;
   border-radius: 4px;
+  padding: 10px;
+  width: 100px;
+  box-sizing: border-box;
+
+  @include jcsb;
 }
+
 .like {
 
 }

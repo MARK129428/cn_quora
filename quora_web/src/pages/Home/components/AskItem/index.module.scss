@@ -1,21 +1,25 @@
 .askItem-wrapper {
   @include jcsb;
-  box-sizing: border-box;
-  width: 789px;
+
+  border-bottom: 1px solid rgb(226 226 226);
   padding: 10px;
+  width: 789px;
   background: white;
-  border-bottom: 1px solid rgb(226, 226, 226);
+  box-sizing: border-box;
 }
+
 .askItem-middle {
-  flex: 1;
   overflow: hidden;
-  margin-left: 10px;
   margin-right: 30px;
+  margin-left: 10px;
+  flex: 1;
 }
+
 .middle-question {
   overflow: hidden;
-  white-space: nowrap;
   text-overflow: ellipsis;
+  white-space: nowrap;
+
   &:hover {
     cursor: pointer;
     text-decoration: underline;
@@ -28,38 +32,45 @@
 
 .ctl-item {
   @include jcsb;
-  height: 30px;
-  width: 117px;
-  background: rgb(247, 247, 247);
-  border-radius: 17px;
+
   overflow: hidden;
+  border-radius: 17px;
+  width: 117px;
+  height: 30px;
+  background: rgb(247 247 247);
   
   & > img {
     display: block;
   }
 }
+
 .agree {
   display: flex;
   align-items: center;
+  border-right: 1px solid rgb(222 224 225);
   padding: 3px 10px;
   padding-right: 10px;
-  border-right: 1px solid rgba(222, 224, 225);
+
   &:hover {
-    background: rgb(232, 232, 232);
-    border-radius: 17px 0 0 17px;  
+    border-radius: 17px 0 0 17px;
+    background: rgb(232 232 232);  
   }
 }
+
 .fuck {
   padding: 3px 10px;
+
   &:hover {
-    background: rgb(232, 232, 232);
-    border-radius: 0 17px 17px 0;  
+    border-radius: 0 17px 17px 0;
+    background: rgb(232 232 232);  
   }
 }
+
 .comment-num {
   @include jcc;
+
   overflow: hidden;
   border-radius: 8px;
-  background: #aab0c6;
   min-width: 20px;
+  background: #AAB0C6;
 }

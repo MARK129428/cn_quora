@@ -1,13 +1,15 @@
 .askCard-wrapper {
   display: inline-block;
-  border: 1px solid rgb(222, 224, 225);
+  border: 1px solid rgb(222 224 225);
   box-sizing: border-box;
   padding: 7px 24px;
   background: white;
+
   &:hover {
-    border: 1px solid rgba(16, 16, 16, 0.225);
+    border: 1px solid rgb(16 16 16 / 22.5%);
   }
 }
+
 .askCard-input {
   border-radius: 30px;
   width: 700px;
@@ -15,24 +17,31 @@
 
 .askCard-Btns {
   @include jcsb;
+
   margin-top: 3px;
   color: $border-color;
+
   > div {
-    box-sizing: border-box;
     overflow: hidden;
-    flex: 1;
-    color: black;
     border-radius: 20px;
+    color: black;
+    box-sizing: border-box;
+    flex: 1;
+
     > div {
       @include jcc;
+
       width: 100%;
     }
+
     > a > div {
       @include jcc;
+
       width: 100%;
     }
+
     :hover {
-      background: rgb(247, 247, 247);
+      background: rgb(247 247 247);
       cursor: pointer;
     }
   }
