@@ -16,12 +16,16 @@ export function getQuestion(questionId: number) {
   return instance.get(`/question/${questionId}`);
 }
 
-export function getUserQuestions() {
-  return instance.get('/user/questions');
+export function getUserQuestions(data: any) {
+  return instance.get('/user/questions', {
+    params: data,
+  });
 }
 
-export function getAllQuestions() {
-  return instance.get('/questions');
+export function getAllQuestions(data: any) {
+  return instance.get('/questions', {
+    params: data,
+  });
 }
 interface IQuestionLike {
   likeIds: Set<number>,
@@ -36,4 +40,10 @@ export function postQuestionLike(data: IQuestionLike) {
 
 export function getHotTopic() {
   return instance('/getHotTopic');
+}
+
+export function getSearchQuestion(data: any) {
+  return instance('/search', {
+    params: data,
+  });
 }

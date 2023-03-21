@@ -5,32 +5,42 @@ import { IAnswer } from '@page/User/Answer';
 import { getQuestion } from '@/api/question';
 import styles from './index.module.scss';
 import { getAllAnswerByQuestionId } from '@/api/answer';
+import { Pagination, PaginationProps } from 'antd';
 
 function AnswerDetail() {
   const { questionId }: { questionId :string } = useParams();
   const [question, setQuestion] = useState<IQuestion>();
   const [answers, setAnswers] = useState<IAnswer[]>([]);
+  const [totalNum, setTotal] = useState(10);
+  const [current, setCurrent] = useState(1);
   const init = useCallback(async () => {
     const { data: questions } : { data: IQuestion } = await getQuestion(+questionId);
     setQuestion(questions);
-    const { data: allAnswers } : any = await getAllAnswerByQuestionId(questionId);
+    const { data: allAnswers, total } : any = await getAllAnswerByQuestionId(questionId, {
+      page: current - 1,
+      limit: 10,
+    });
+    setTotal(total);
     setAnswers(allAnswers);
-  }, []);
+  }, [current]);
 
   useEffect(() => {
     init();
-  }, []);
+  }, [current]);
   const history = useHistory();
   const handleItemClick = useCallback((id: number) => {
     history.push(`/answerview/${id}`);
   }, []);
+  const onChange: PaginationProps['onChange'] = (page) => {
+    setCurrent(page);
+  };
   return (
     <div className={styles['answer-detail']}>
       <h1 className={styles['question-title']}>{question?.Content}</h1>
       <h2>回答:</h2>
       <ul className={styles['question-wrapper']}>
         {
-          answers?.map(({ id, title }) => {
+          answers && answers?.map(({ id, title }) => {
             return (
               <li
                 role="presentation"
@@ -44,6 +54,9 @@ function AnswerDetail() {
           })
         }
       </ul>
+      <div>
+        <Pagination current={current} onChange={onChange} total={totalNum} />
+      </div>
     </div>
   );
 }

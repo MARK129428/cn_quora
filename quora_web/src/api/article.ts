@@ -17,10 +17,14 @@ export function getArticle(articleId: string) {
   return instance.get(`/article/${articleId}`);
 }
 
-export function getUserArticle() {
-  return instance.get('/user/articles');
+export function getUserArticle(data: any) {
+  return instance.get('/user/articles', {
+    params: data,
+  });
 }
 
-export function getArticles() {
-  return instance.get('/articles');
+export function getArticles(data: any) {
+  return instance.get('/articles', {
+    params: data,
+  });
 }

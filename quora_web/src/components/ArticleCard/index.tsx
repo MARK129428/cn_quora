@@ -1,4 +1,4 @@
-import { Button, Space } from 'antd';
+import { Button, Space, message } from 'antd';
 import styles from './index.module.scss';
 
 export interface ArticleCardProps {
@@ -20,8 +20,8 @@ function ArticleCard({
       <div className={styles.title}>{title}</div>
       <div className={styles.ctrl}>
         <Space>
-          <Button onClick={(e) => { e.stopPropagation(); deleteItem(id); }} type="primary" danger>删除</Button>
-          <Button onClick={(e) => { e.stopPropagation(); changeItem(id); }} type="primary">修改</Button>
+          <Button onClick={(e) => { e.stopPropagation(); deleteItem(id); message.success('success');}} type="primary" danger>删除</Button>
+          <Button onClick={(e) => { e.stopPropagation(); changeItem(id); message.success('success');}} type="primary">修改</Button>
         </Space>
       </div>
     </div>

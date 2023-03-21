@@ -56,7 +56,7 @@ function QuestionCard({
   return (
     <>
       <div className={styles['question-card']}>
-        <div className={styles.info}>
+        <div role="presentation" className={styles.info} onClick={() => { history.push(`/answer/${id}`); }}>
           <div className={styles.id}>{id}</div>
           <div>
             <div className={styles.content}>{Content}</div>

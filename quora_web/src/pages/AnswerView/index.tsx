@@ -6,6 +6,8 @@ import {
   Divider,
   Input,
   List,
+  Pagination,
+  PaginationProps,
 } from 'antd';
 import { Editor, Viewer } from '@bytemd/react';
 import { IAnswer } from '@page/User/Answer';
@@ -19,15 +21,22 @@ function AnswerView() {
   const [answer, setAnswer] = useState<IAnswer>({});
   const [comment, setComment] = useState('');
   const [listData, setListData] = useState<IComment[]>([]);
+  const [totalNum, setTotal] = useState(10);
+  const [current, setCurrent] = useState(1);
   const init = useCallback(async () => {
     const { data: answerData }: { data: IAnswer } = await getAnswerById(answerId);
     setAnswer(answerData);
-    const { data: comments }: { data: IComment[] } = await getCommentsByAnswerId(answerId);
+    const { data: comments, total }: { data: IComment[] } = await getCommentsByAnswerId(answerId, {
+      page: current - 1,
+      limit: 10,
+    });
+    console.log(total);
+    setTotal(total);
     setListData(comments);
-  }, []);
+  }, [current]);
   useEffect(() => {
     init();
-  }, []);
+  }, [current]);
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setComment(e.target.value);
@@ -40,6 +49,10 @@ function AnswerView() {
     });
     init();
   }, [comment, answerId]);
+  const onPageChange: PaginationProps['onChange'] = (page) => {
+    console.log(page);
+    setCurrent(page);
+  };
   return (
     <div>
       <div className={styles['view-wrapper']}>
@@ -54,7 +67,7 @@ function AnswerView() {
           onChange={onChange}
           placeholder="disable resize"
         />
-        <Button type="primary" onClick={handleSubmitComment}>发送评论</Button>
+        <Button type="primary" onClick={handleSubmitComment} disabled={!localStorage.getItem('token')}>发送评论</Button>
         <List
           itemLayout="horizontal"
           dataSource={listData}
@@ -70,6 +83,9 @@ function AnswerView() {
             );
           }}
         />
+      </div>
+      <div>
+        <Pagination current={current} onChange={onPageChange} total={totalNum} />
       </div>
     </div>
   );

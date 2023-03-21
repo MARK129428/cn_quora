@@ -1,5 +1,6 @@
 import axios, { CreateAxiosDefaults } from 'axios';
 import { message } from 'antd';
+import { useHistory } from 'react-router';
 
 const BaseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:9000/v1' : '';
 
@@ -23,16 +24,14 @@ instance.interceptors.request.use((config) => {
 });
 
 instance.interceptors.response.use((response: any) => {
-  if (!response.showMessage) {
-    return response.data;
-  }
   if (response.data.message === 'error') {
     message.error(response.data.data);
-  } else if (response.data.message === 'success') {
-    message.success(response.data.message);
   }
   return response.data;
 }, (error) => {
+  // if (error.response.data.code === 401) {
+  //   window.location.href = `${window.location.origin}/#/signin`;
+  // }
   return Promise.reject(error);
 });
 

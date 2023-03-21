@@ -9,12 +9,16 @@ export function postAnswer(data: IPostAnswer, questionId: string) {
   return instance.post(`/answer/${questionId}`, data);
 }
 
-export function getAllAnswerByQuestionId(questionId: string) {
-  return instance.get(`/allanswers/${questionId}`);
+export function getAllAnswerByQuestionId(questionId: string, data: any) {
+  return instance.get(`/allanswers/${questionId}`, {
+    params: data,
+  });
 }
 
-export function getAllAnswerByUserId() {
-  return instance.get('/user/answers');
+export function getAllAnswerByUserId(data: any) {
+  return instance.get('/user/answers', {
+    params: data,
+  });
 }
 
 export function getAnswerById(answerId: string) {

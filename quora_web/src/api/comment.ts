@@ -11,6 +11,8 @@ export function createComment(data: IComment) {
   return instance.post('/comment', data);
 }
 
-export function getCommentsByAnswerId(answerId: string) {
-  return instance.get(`/comments/${answerId}`);
+export function getCommentsByAnswerId(answerId: string, data: any) {
+  return instance.get(`/comments/${answerId}`, {
+    params: data,
+  });
 }

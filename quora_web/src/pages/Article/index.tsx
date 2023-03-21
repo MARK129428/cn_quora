@@ -3,6 +3,7 @@ import { useParams } from 'react-router';
 import gfm from '@bytemd/plugin-gfm';
 import highlight from '@bytemd/plugin-highlight';
 import 'github-markdown-css';
+import { message } from 'antd';
 import KEditor from '@component/Editor';
 import { getArticle, patchArticle, postArticle } from '@/api/article';
 
@@ -41,12 +42,14 @@ function Article() {
         title,
         content: value,
       });
+      message.success('success');
       return;
     }
     const response = await postArticle({
       title,
       content: value,
     });
+    message.success('success');
   }, [value, title]);
   const handleTitleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);

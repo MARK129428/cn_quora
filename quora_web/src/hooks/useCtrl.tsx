@@ -21,7 +21,7 @@ function useCtrl(): [Function, React.Dispatch<React.SetStateAction<Choice>>] {
         <div
           role="presentation"
           className={styles.like}
-          onClick={() => { handleLike(choice); }}
+          onClick={(e) => { e.stopPropagation(); handleLike(choice); }}
         >
           { choice === 'LIKE'
             ? (
@@ -41,7 +41,7 @@ function useCtrl(): [Function, React.Dispatch<React.SetStateAction<Choice>>] {
         <div
           role="presentation"
           className={styles.dislike}
-          onClick={() => { handleDislike(choice); }}
+          onClick={(e) => { e.stopPropagation(); handleDislike(choice); }}
         >
           { choice === 'DISLIKE' ? (
             <img

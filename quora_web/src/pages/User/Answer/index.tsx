@@ -3,6 +3,7 @@ import { useHistory } from 'react-router';
 import ArticleCard from '@component/ArticleCard';
 import { deleteAnswer, getAllAnswerByUserId } from '@/api/answer';
 import styles from './index.module.scss';
+import { Pagination, PaginationProps } from 'antd';
 
 export interface IAnswer {
   id?: number,
@@ -13,13 +14,19 @@ export interface IAnswer {
 }
 function Answer() {
   const [answers, setAnswers] = useState<IAnswer[]>([]);
+  const [totalNum, setTotal] = useState(10);
+  const [current, setCurrent] = useState(1);
   const init = useCallback(async () => {
-    const { data } = await getAllAnswerByUserId();
+    const { data, total } : any = await getAllAnswerByUserId({
+      page: current - 1,
+      limit: 10,
+    });
+    setTotal(total);
     setAnswers(data);
-  }, []);
+  }, [current]);
   useEffect(() => {
     init();
-  }, []);
+  }, [current]);
   const deleteItem = useCallback(async (id: number) => {
     await deleteAnswer(`${id}`);
     init();
@@ -33,11 +40,14 @@ function Answer() {
   const handleItemClick = useCallback((id: number) => {
     history.push(`/answerview/${id}`);
   }, []);
-
+  const onChange: PaginationProps['onChange'] = (page) => {
+    console.log(page);
+    setCurrent(page);
+  };
   return (
     <div>
       <ul className={styles['article-wrapper']}>
-        {answers?.map((item: IAnswer) => {
+        {answers && answers?.map((item: IAnswer) => {
           return (
             <li
               role="presentation"
@@ -54,6 +64,9 @@ function Answer() {
           );
         })}
       </ul>
+      <div>
+        <Pagination current={current} onChange={onChange} total={totalNum} />
+      </div>
     </div>
   );
 }

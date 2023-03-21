@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { Pagination, PaginationProps } from 'antd';
 import { useHistory } from 'react-router';
 import { IQuestion } from '@page/User/Question';
 import QuestionCard from '@component/QuestionCard';
@@ -9,10 +10,16 @@ function Answer() {
   const [questions, setQuestions] = useState<IQuestion[]>([]);
   const [likeIds, setLikeIds] = useState<Set<number>>(new Set());
   const [dislikeIds, setDislikeIds] = useState<Set<number>>(new Set());
+  const [totalNum, setTotal] = useState(10);
+  const [current, setCurrent] = useState(1);
   const init = useCallback(async () => {
-    const { data } : { data: IQuestion[] } = await getAllQuestions();
+    const { data, total } : { data: IQuestion[], total: number } = await getAllQuestions({
+      page: current - 1,
+      limit: 10,
+    });
+    setTotal(total);
     setQuestions(data);
-  }, []);
+  }, [current]);
   useEffect(() => {
     init();
     return () => {
@@ -24,14 +31,17 @@ function Answer() {
         console.log(res);
       });
     };
-  }, []);
+  }, [current]);
   const handleLike = (id: number) => {
     setLikeIds(likeIds.add(id));
   };
   const handleDislike = (id: number) => {
     setDislikeIds(dislikeIds.add(id));
   };
-
+  const onChange: PaginationProps['onChange'] = (page) => {
+    console.log(page);
+    setCurrent(page);
+  };
   const history = useHistory();
   return (
     <div className={styles['answer-wrapper']}>
@@ -41,7 +51,6 @@ function Answer() {
             return (
               <li
                 key={item.id}
-                onClick={() => { history.push(`/answer/${item.id}`); }}
                 role="presentation"
               >
                 <QuestionCard
@@ -55,6 +64,9 @@ function Answer() {
           })
         }
       </ul>
+      <div>
+        <Pagination current={current} onChange={onChange} total={totalNum} />
+      </div>
     </div>
   );
 }

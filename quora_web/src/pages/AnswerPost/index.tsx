@@ -48,11 +48,13 @@ function AnswerPost() {
         title,
         content: textContent,
       }, questionId);
+      message.success('success');
     } else {
       const res = await changeAnswer({
         title,
         content: textContent,
       }, answerId);
+      message.success('success');
     }
     setTimeout(() => {
       history.go(-1);

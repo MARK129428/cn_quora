@@ -5,20 +5,37 @@ import {
   Button,
   Space,
   Avatar,
+  List,
+  Typography,
 } from 'antd';
 import ReactLoading from 'react-loading';
-import { ChangeEventHandler, MouseEventHandler, Suspense } from 'react';
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  Suspense,
+  useState,
+} from 'react';
 import { SearchOutlined, UserOutlined } from '@ant-design/icons';
 import Header from '@component/Header';
+import { IQuestion } from '@page/User/Question';
 import Logo from '@/assets/img/logo.svg';
 import routes from './router/route';
+import { getSearchQuestion } from './api/question';
+import debounce from './utils/debounce';
 
 function APP() {
   const history = useHistory();
+  const [searchRes, setSearchRes] = useState<IQuestion[]>([]);
+  const [str, setStr] = useState('');
   // input框改变
-  const handleChange: ChangeEventHandler<HTMLInputElement> = () => {
-    // console.log(e.target.value);
-  };
+  const handleChange: ChangeEventHandler<HTMLInputElement> = debounce(async (e: any) => {
+    setStr(e.target.value.trim());
+    if (e.target.value.trim() === '') return;
+    const { data } : any = await getSearchQuestion({
+      q: str,
+    });
+    setSearchRes(data);
+  }, 1000);
   const handleLogoClick: MouseEventHandler<HTMLDivElement> = () => {
     history.push('/');
   };
@@ -27,6 +44,18 @@ function APP() {
        localStorage.removeItem('token');
        window.location.reload();
      };
+  const handlerBlur = () => {
+    setTimeout(() => {
+      setSearchRes([]);
+    }, 300);
+  };
+  const handlerFocus = async () => {
+    if (str === '') return;
+    const { data } : any = await getSearchQuestion({
+      q: str,
+    });
+    setSearchRes(data);
+  };
   return (
     <div>
       <Header>
@@ -45,7 +74,29 @@ function APP() {
             width="400px"
             prefix={<SearchOutlined />}
             onChange={handleChange}
+            onBlur={handlerBlur}
+            onFocus={handlerFocus}
           />
+          {
+            searchRes.length > 0
+            && (
+            <List
+              style={{ position: 'absolute', background: 'white', width: '550px' }}
+              header={<h2>搜索结果</h2>}
+              bordered
+              dataSource={searchRes}
+              renderItem={(item) => {
+                return (
+                  <List.Item
+                    onClick={() => { history.push(`/answer/${item.id}`); }}
+                  >
+                    {`${item.id}-${item.Content}`}
+                  </List.Item>
+                );
+              }}
+            />
+            )
+          }
         </div>
         <div>
           <Space>
@@ -75,7 +126,9 @@ function APP() {
       </Header>
       <main style={{ marginTop: '64px', padding: '0 260px 0 240px' }}>
         <Suspense fallback={<ReactLoading />}>
-          {renderRoutes(routes)}
+          <>
+            {renderRoutes(routes)}
+          </>
         </Suspense>
       </main>
     </div>
