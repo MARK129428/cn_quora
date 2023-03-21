@@ -134,7 +134,7 @@ func GetHotTopic(ctx *gin.Context) {
 	service := GetHotTopicService()
 	if service == nil {
 		ctx.JSON(200, gin.H{
-			"data":    "删除失败",
+			"data":    []QuestionCount{},
 			"message": "error",
 		})
 		return

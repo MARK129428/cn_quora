@@ -3,6 +3,7 @@ package user
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"net/http"
 	"quora_server/src/utils"
 )
@@ -12,8 +13,9 @@ func Signup(c *gin.Context) {
 	fmt.Println(username, "ffffff")
 	password := c.PostForm("password")
 	Md5Password := utils.Md5(password)
-
+	u1 := uuid.New()
 	u := User{
+		ID:       u1.String(),
 		Password: Md5Password,
 		Email:    "",
 		Username: username,
@@ -21,7 +23,8 @@ func Signup(c *gin.Context) {
 	}
 	if SigninService(&u) != nil {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "用户已经存在",
+			"data":    "用户已经存在",
+			"message": "error",
 		})
 		return
 	}
@@ -59,17 +62,17 @@ func Signin(c *gin.Context) {
 			})
 		}
 		c.JSON(200, gin.H{
-			"message": "success",
-			"token":   token,
-			"email": service.Email,
+			"message":  "success",
+			"token":    token,
+			"email":    service.Email,
 			"username": service.Username,
-			"avatar": service.Avatar,
+			"avatar":   service.Avatar,
 		})
 		return
 	}
 	c.JSON(200, gin.H{
 		"message": "error",
-		"data": "用户未注册",
+		"data":    "用户未注册",
 	})
 }
 
@@ -110,15 +113,15 @@ func GetUser(c *gin.Context) {
 
 	if service != nil {
 		c.JSON(200, gin.H{
-			"message": "success",
-			"email": service.Email,
+			"message":  "success",
+			"email":    service.Email,
 			"username": service.Username,
-			"avatar": service.Avatar,
+			"avatar":   service.Avatar,
 		})
 		return
 	}
 	c.JSON(200, gin.H{
 		"message": "error",
-		"data": "用户未注册",
+		"data":    "用户未注册",
 	})
 }

@@ -57,5 +57,5 @@ func main() {
 	r.POST("/v1/comment", user.LoginRequest, comment.CreateComment)
 	r.GET("/v1/comments/:answerId", comment.GetCommentsByAnswerId)
 
-	r.Run(":9000") // 监听并在 0.0.0.0:8080 上启动服务
+	r.Run(":8888") // 监听并在 0.0.0.0:8080 上启动服务
 }

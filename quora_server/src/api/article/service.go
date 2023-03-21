@@ -9,7 +9,8 @@ import (
 
 func GetUserIDByToken(token map[string]string) *user.User {
 	var u user.User
-	data := db.DB.Model(&user.User{}).Where("password = ?", token["Password"]).First(&u)
+	fmt.Println(token)
+	data := db.DB.Model(&user.User{}).Where("password = ? AND username = ?", token["Password"], token["Username"]).First(&u)
 	if data.RowsAffected == 0 {
 		return nil
 	}

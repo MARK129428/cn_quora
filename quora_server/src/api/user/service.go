@@ -15,9 +15,9 @@ func SignupService(u *User) int64 {
 }
 
 func SigninService(u *User) *User {
-	fmt.Println(u.Username, u.Password, "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
 	result := map[string]string{
 		"password": u.Password,
+		"username": u.Username,
 	}
 	var user User
 	find := db.DB.Where(result).First(&user)
